@@ -1,6 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { getCoachPreset } from "@/lib/coach-presets";
 
 const messageSchema = z.object({
@@ -19,9 +18,13 @@ const inputSchema = z.object({
  * to change providers without touching any client code — the practice
  * UI only ever talks to this server function, never to the provider
  * directly.
+ *
+ * NOTE: intentionally open to anyone right now (no requireSupabaseAuth)
+ * so scenarios can be tried straight from the landing page without an
+ * account. Re-add the auth middleware once you want practice sessions
+ * gated behind login again.
  */
 export const sendCoachMessage = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .validator(inputSchema)
   .handler(async ({ data }) => {
     const coach = getCoachPreset(data.coachId);
