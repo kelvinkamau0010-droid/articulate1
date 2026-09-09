@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { AudioLines, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
@@ -38,7 +39,7 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <a
+        
           href="#top"
           className="flex items-center gap-2 font-display text-[17px] font-semibold tracking-tight"
         >
@@ -63,6 +64,12 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
+          <Link
+            to="/login"
+            className="hidden text-sm font-medium text-muted-foreground hover:text-foreground sm:block"
+          >
+            Log in
+          </Link>
           <Button
             onClick={startFree}
             className="hidden rounded-full bg-[image:var(--gradient-primary)] px-5 font-semibold text-primary-foreground shadow-elegant transition-transform hover:scale-[1.02] sm:inline-flex"
